@@ -38,6 +38,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posts         Post[]
+  credit        Int @default(10)
+  projects      Project[]
 
   @@unique([email])
   @@map("user")
@@ -56,6 +58,7 @@ model Session {
 
   @@unique([token])
   @@map("session")
+  @@index([userId])
 }
 
 model Account {
@@ -75,6 +78,7 @@ model Account {
   updatedAt             DateTime  @updatedAt
 
   @@map("account")
+  @@index([userId])
 }
 
 model Verification {
@@ -86,4 +90,19 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+  @@index([identifier])
+}
+
+model Project {
+  id         String   @id @default(cuid())
+  name       String?
+  imageUrl   String
+  imageKitId String
+  filePath   String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("project")
 }
