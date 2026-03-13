@@ -17,7 +17,8 @@ if (polarAccessToken && polarWebhookSecret) {
       accessToken: polarAccessToken,
       server: "sandbox",
     }),
-    createCustomerOnSignUp: true,
+    // Keep auth signup resilient even if Polar credentials are temporarily invalid.
+    createCustomerOnSignUp: false,
     use: [
       checkout({
         products: [
