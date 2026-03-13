@@ -1,29 +1,90 @@
-# Create T3 App
+# Lumen Studio
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+AI Image Editor SaaS built with Next.js App Router, Better Auth, Prisma, Polar billing, and ImageKit.
 
-## What's next? How do I make an app with this?
+## Tech Stack
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- Next.js 16 + React 19 + TypeScript (strict)
+- Prisma + PostgreSQL (Neon-compatible)
+- Better Auth + @daveyplate/better-auth-ui
+- Polar checkout + customer portal
+- ImageKit upload + transformations
+- Tailwind CSS v4 + Sonner toasts
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Prerequisites
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- Node.js 20.9+
+- npm 10+
+- PostgreSQL database URL
 
-## Learn More
+## Environment Variables
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Copy .env.example to .env and fill values:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- DATABASE_URL
+- BETTER_AUTH_SECRET
+- BETTER_AUTH_URL
+- POLAR_ACCESS_TOKEN
+- POLAR_WEBHOOK_SECRET
+- IMAGEKIT_PRIVATE_KEY
+- IMAGEKIT_PUBLIC_KEY
+- IMAGEKIT_URL_ENDPOINT
+- NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT
+- NEXT_PUBLIC_APP_URL (production canonical URL, e.g. https://yourdomain.com)
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Getting Started
 
-## How do I deploy this?
+```bash
+npm install
+npm run db:push
+npm run dev
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Open http://localhost:3000
+
+## Available Scripts
+
+- npm run dev: start local dev server
+- npm run build: production build
+- npm run start: run production build
+- npm run lint: ESLint checks
+- npm run typecheck: TypeScript checks
+- npm run check: lint + typecheck
+- npm run format:check: Prettier check
+- npm run format:write: Prettier write
+- npm run db:studio: open Prisma Studio
+
+## Quality Gate
+
+Before shipping changes:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+## Deploy To Vercel (Easy)
+
+1. Push your latest code to GitHub.
+2. Open Vercel and click `Add New...` -> `Project`.
+3. Import `KritamBanDev/ai-image-editor-saas-app`.
+4. In `Environment Variables`, add all variables from `.env.example`.
+5. Set these production values:
+
+- `NEXT_PUBLIC_APP_URL=https://kritam-ai-image-editor-saas.vercel.app`
+- `BETTER_AUTH_URL=https://kritam-ai-image-editor-saas.vercel.app`
+
+6. Click `Deploy`.
+7. After deploy, open:
+
+- `https://kritam-ai-image-editor-saas.vercel.app/robots.txt`
+- `https://kritam-ai-image-editor-saas.vercel.app/sitemap.xml`
+
+8. In your domain DNS settings, point your custom domain to Vercel (optional if using the default Vercel domain).
+
+## Notes
+
+- The dashboard includes a Customer Portal entry that redirects through Polar.
+- Credit deductions for AI operations are handled atomically server-side.
+- Upload auth tokens are generated only for authenticated users.

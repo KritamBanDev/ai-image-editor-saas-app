@@ -1,0 +1,28 @@
+import type { MetadataRoute } from "next";
+
+import { absoluteUrl } from "~/lib/seo";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  return [
+    {
+      url: absoluteUrl("/"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: absoluteUrl("/auth/sign-in"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
+      url: absoluteUrl("/auth/sign-up"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+  ];
+}
